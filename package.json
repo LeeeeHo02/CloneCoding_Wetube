@@ -1,0 +1,29 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "for Studying",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  },
+  "repository": {
+    "url": "git+https://github.com/LeeeeHo02/CloneCoding_Wetube.git"
+  },
+  "author": "Lee Hoyoung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeeeeHo02/CloneCoding_Wetube/issues"
+  },
+  "homepage": "https://github.com/LeeeeHo02/CloneCoding_Wetube#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "nodemon": "^2.0.18"
+  }
+}
