@@ -9,6 +9,16 @@ const logger = (req, res, next) => {
   next();
 }
 
+const routerLogger = (req, res, next) => {
+  console.log(`routerLogger! ${req.path} `);
+  next();
+}
+
+const methodLogger = (req, res, next) => {
+  console.log(`methodLogger! ${req.method}`);
+  next();
+}
+
 const privateMiddleware = (req, res, next) => {
   const url = req.url;
   if (url === "/protected") {
@@ -30,6 +40,8 @@ const handleProtected = (req, res) => {
   return res.send("welcome to the private lounge");
 }
 
+app.use(routerLogger, methodLogger);
+//app.get("/home", routerLogger, methodLogger, handleHome);
 app.use(logger);
 app.use(privateMiddleware);
 app.get("/", handleHome);
