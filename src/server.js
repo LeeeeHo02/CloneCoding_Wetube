@@ -1,13 +1,10 @@
 import express from "express";
+import morgan from "morgan";
 
 const PORT = 4000;
 //express어플리케이션 생성
 const app = express();
-
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-}
+const logger = morgan("dev");
 
 const routerLogger = (req, res, next) => {
   console.log(`routerLogger! ${req.path} `);
@@ -40,9 +37,10 @@ const handleProtected = (req, res) => {
   return res.send("welcome to the private lounge");
 }
 
+app.use(logger);
 app.use(routerLogger, methodLogger);
 //app.get("/home", routerLogger, methodLogger, handleHome);
-app.use(logger);
+
 app.use(privateMiddleware);
 app.get("/", handleHome);
 app.get("/login", handleLogin);
