@@ -6,45 +6,22 @@ const PORT = 4000;
 const app = express();
 const logger = morgan("dev");
 
-const routerLogger = (req, res, next) => {
-  console.log(`routerLogger! ${req.path} `);
-  next();
-}
+const globalRouter = express.Router();
+const handelHome = (req, res) => res.send("Home");
+globalRouter.get("/", handelHome);
 
-const methodLogger = (req, res, next) => {
-  console.log(`methodLogger! ${req.method}`);
-  next();
-}
+const userRouter = express.Router();
+const handleEditUser = (req, res) => res.send("Edit User");
+userRouter.get("/edit", handleEditUser);
 
-const privateMiddleware = (req, res, next) => {
-  const url = req.url;
-  if (url === "/protected") {
-    return res.send("<h1>Not Allowed</h1>");
-  }
-  console.log("Allowed!");
-  next();
-}
+const videoRouter = express.Router();
+const handleWatchVideo = (req, res) => res.send("Watch Video");
+videoRouter.get("watch", handleWatchVideo);
 
-const handleHome = (req,res) => {
-  console.log(res.send);
-  return res.send("<h1>Home</h1>");
-}
-const handleLogin = (req, res) => {
-  return res.send({ message : "Login"});
-}
+app.use("/", globalRouter);
+app.use("/videos", videoRouter);
+app.use("/users", userRouter);
 
-const handleProtected = (req, res) => {
-  return res.send("welcome to the private lounge");
-}
-
-app.use(logger);
-app.use(routerLogger, methodLogger);
-//app.get("/home", routerLogger, methodLogger, handleHome);
-
-app.use(privateMiddleware);
-app.get("/", handleHome);
-app.get("/login", handleLogin);
-app.get("/protected", handleProtected);
 const handleListening = () => console.log("Server listening on port 4000!!🚀");
 
 app.listen(PORT, handleListening);
